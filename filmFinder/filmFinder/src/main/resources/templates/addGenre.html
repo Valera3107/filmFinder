@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Genre</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-3">
+  <a href="/main">Main page</a>
+  <form method="post" action="/addGenre">
+
+    <div class="form-group">
+      <label>Genre</label>
+      <input type="text" class="form-control" name="name" placeholder="Enter genre">
+    </div>
+
+    <!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <input type="submit" value="Add" class="btn btn-primary"/>
+      </div>
+    </div>
+  </form>
+  <br>
+  <br>
+  <br>
+  <h1>List of genres</h1>
+  <ul th:each="g : ${genres}" class="list-group">
+    <li th:text="${g.name}" class="list-group-item"></li>
+  </ul>
+</div>
+</body>
+</html>

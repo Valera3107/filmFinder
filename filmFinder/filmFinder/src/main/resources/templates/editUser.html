@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User Edit</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<header th:insert="~{parts/header.html :: header}"> </header>
+
+<div class="container my-3">
+  <form method="post" action="/editUser">
+
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" class="form-control" name="name" th:value="${user.name}" placeholder="Enter name">
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" name="email" th:value="${user.email}" id="exampleInputEmail1" aria-describedby="emailHelp"
+             placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div class="form-group">
+      <label>Login</label>
+      <input type="text" class="form-control" th:value="${user.username}" name="username" placeholder="Enter login">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="text" class="form-control" th:value="${user.password}" name="password" placeholder="Enter password">
+    </div>
+
+    <div th:each="role : ${roles}">
+
+      <div th:if="${#lists.contains(userRoles, role)}">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="role" th:value="${role}" id="defaultCheck1"
+                 checked>
+          <label th:text="${role}" class="form-check-label" for="defaultCheck1">
+          </label>
+        </div>
+      </div>
+
+      <div th:unless="${#lists.contains(userRoles, role)}">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="role" th:value="${role}" id="defaultCheck2">
+          <label th:text="${role}" class="form-check-label" for="defaultCheck2">
+          </label>
+        </div>
+      </div>
+
+    </div>
+    <!--    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>-->
+
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <input type="submit" value="Update" class="btn btn-primary"/>
+      </div>
+    </div>
+  </form>
+  <a href="/login">Sign In</a>
+</div>
+</body>
+</html>

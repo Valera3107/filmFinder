@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Film</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://use.fontawesome.com/075d14f827.js"></script>
+  <link rel="stylesheet" href="./static/css/card.css">
+
+</head>
+<body>
+<header th:insert="~{parts/header.html :: header}"> </header>
+
+<div class="container">
+  <a href="/filmList">Film list</a>
+  <div class="card-header" style="margin-bottom: 4rem;">
+    <img class="card-img" th:src="@{data:image/jpg;base64, {img}(img=${film.image})}" alt="Card image">
+  </div>
+  <div class="card-body">
+    <h1 class="card-title" th:text="${film.name}"></h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-4 metadata">
+          <i class="fa fa-star" style="color: #fece00;" aria-hidden="true"></i>
+          <p style="display: inline-block;" th:text="${film.rating}+'/10'"></p>
+        </div>
+      </div>
+    </div>
+    <h4 style="color:black;">  Genre: </h4>
+    <div th:each="genre :${film.genres}">
+      <div class="col-8 metadata" th:text="${genre.name}">&#8195;</div>
+    </div>
+    <h4 style="color:black;">  Country: </h4>
+    <div th:each="c : ${film.countries}">
+      <div class="card-text" th:text="${c}">&#8195;</div>
+    </div>
+    <br>
+    <br>
+    <div class="video">
+      <iframe style="border-radius: 20px;" width="560" height="315" th:src="${film.url}"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p class="card-text" th:text="${film.description}"></p>
+  </div>
+</div>
+<a th:href="@{film/{id}(id=${film.id})}" class="btn btn-success">Add To Favorite</a>
+
+
+</body>
+</html>

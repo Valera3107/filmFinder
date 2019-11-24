@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Films</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="./static/css/card.css">
+  <script src="https://use.fontawesome.com/075d14f827.js"></script>
+</head>
+<body>
+<header th:insert="~{parts/header.html :: header}"> </header>
+
+<div class="container">
+  <div class="card-columns">
+    <div class="card" th:each="film :${list}">
+      <div class="card-header" style="margin-bottom: 4rem;">
+        <img class="card-img" th:src="@{data:image/jpg;base64, {img}(img=${film.image})}" alt="Card image">
+      </div>
+      <div class="card-body">
+        <h1 class="card-title" th:text="${film.name}"></h1>
+        <div class="container">
+          <div class="row">
+            <div class="col-4 metadata">
+              <i class="fa fa-star" style="color: #fece00;" aria-hidden="true"></i>
+              <p style="display: inline-block;" th:text="${film.rating}+'/10'"></p>
+            </div>
+          </div>
+        </div>
+        <p class="card-text" th:text="${#strings.substring(film.description,0,100)} + '...'"></p>
+        <a class="trailer-preview" th:href="@{filmList/{id}(id=${film.id})}" target="new">
+          <i class="fa fa-play" aria-hidden="true"></i>
+        </a>
+        <a th:href="@{editFilm/{id}(id=${film.id})}"><i class="fa fa-edit"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
